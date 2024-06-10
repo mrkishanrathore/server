@@ -2,15 +2,13 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
-const port = 3000;
-
 const app = express();
 const server = createServer(app);
 
 const io = new Server(server, {
   // origin: "http://localhost:5173",
   cors: {
-    origin: "https://multiplayergamesbykishan.netlify.app/",
+    origin: process.env.ORIGIN,
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -54,6 +52,6 @@ io.on("connection", (socket) => {
 
 });
 
-server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+server.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
 });
